@@ -7,7 +7,7 @@
     /**
      * The state history module
      */
-    var stateHistory = angular.module('angular-ui-router-state-history',
+    var stateHistory = angular.module('rf.state.history',
         [
             'ui.router',
             'angular-storage'

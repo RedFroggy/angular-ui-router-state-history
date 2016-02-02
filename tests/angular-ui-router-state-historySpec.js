@@ -1,6 +1,6 @@
 describe('history state', function () {
 
-    beforeEach(module('angular-ui-router-state-history'));
+    beforeEach(module('rf.state.history'));
 
     it('should contain an stateStore service',
         inject(function(stateStore) {
@@ -13,7 +13,7 @@ describe('stateStoreProvider.setStore("sessionStorage")', function () {
     var provider;
 
     beforeEach(function() {
-        module('angular-ui-router-state-history', function(stateStoreProvider) {
+        module('rf.state.history', function(stateStoreProvider) {
             expect(stateStoreProvider).not.toEqual(null);
             stateStoreProvider.setStorage('sessionStorage');
         });
@@ -43,7 +43,7 @@ describe('stateStoreProvider.setStore("sessionStorage")', function () {
 
 
 describe('store params of state when $state.go is called', function () {
-    beforeEach(module('angular-ui-router-state-history', function($stateProvider) {
+    beforeEach(module('rf.state.history', function($stateProvider) {
         $stateProvider.state({ name: 'test',
             url: '/test?fromDate&toDate' })
     }));
