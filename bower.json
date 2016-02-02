@@ -1,0 +1,23 @@
+{
+    "name": "angular-ui-router-state-history",
+    "version": "1.2.1",
+    "main": "./dist/angular-ui-router-state-history.min.js",
+    "description": "AngularJS service to implement a simple history of the ui-router's state",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/RedFroggy/angular-ui-router-state-history.git"
+    },
+    "dependencies": {
+        "angular": "~1",
+        "angular-ui-router": "~0.2",
+        "a0-angular-storage" : "~0"
+    },
+    "devDependencies": {
+        "angular-mocks": "*"
+    },
+    "ignore": [
+        "node_modules",
+        "components",
+        "lib"
+    ]
+}
