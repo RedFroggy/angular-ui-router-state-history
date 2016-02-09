@@ -19,7 +19,7 @@
      */
     var stateHistoryConfigure = function ($provide) {
         var $state_transitionTo;
-        $provide.decorator("$state", ['$delegate', 'stateStore', function ($state, stateStore) {
+        $provide.decorator("$state", ['$delegate', '$q', 'stateStore', function ($state, $q, stateStore) {
             $state_transitionTo = $state.transitionTo;
             $state.transitionTo = function (to, toParams, options) {
                 var toState = $state.get(to);
@@ -45,6 +45,45 @@
 
     // angular module configuration
     stateHistory.config(["$provide", stateHistoryConfigure]);
+
+
+    /**
+     * state history service contains mapping scope method ang stateStore getter
+     * @param $state
+     * @param stateStore
+     */
+    var stateHistoryService = function($state,stateStore){
+
+        /**
+         * Map stateParams of a state to scope variables and synchronized this params
+         * @param scope
+         * @param stateParams
+         */
+        this.mappingScope = function(scope,stateParams){
+            angular.extend(scope, stateParams);
+            function updateUrl(newValue, oldValue){
+                stateParams[this.key] = newValue;
+                $state.go('.',stateParams,{notify:false});
+            }
+
+            for (var watchKey in stateParams) {
+                var updateUrlFn = updateUrl.bind({key:watchKey});
+                scope.$watch(watchKey, updateUrlFn);
+            }
+        };
+
+        /**
+         * getter for state store
+         * @returns stateStore
+         */
+        this.getStateStore = function (){
+            return stateStore;
+        }
+    };
+
+    // add stateHistory service to the module
+    stateHistory.service('stateHistoryService', ["$state","stateStore",stateHistoryService]);
+
 
     /**
      * state's store service manage the history states

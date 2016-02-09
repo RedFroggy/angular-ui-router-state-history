@@ -1,6 +1,6 @@
 /**
  * AngularJS service to store last state params used for each state.
- * @version v0.0.1 - 2016-02-02
+ * @version v0.0.1 - 2016-02-03
  * @link https://github.com/RedFroggy/angular-ui-router-state-history
  * @author David jay <david.jay@redfroggy.fr>
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -33,7 +33,7 @@
      */
     var stateHistoryConfigure = function ($provide) {
         var $state_transitionTo;
-        $provide.decorator("$state", ['$delegate', 'stateStore', function ($state, stateStore) {
+        $provide.decorator("$state", ['$delegate', '$q', 'stateStore', function ($state, $q, stateStore) {
             $state_transitionTo = $state.transitionTo;
             $state.transitionTo = function (to, toParams, options) {
                 var toState = $state.get(to);
