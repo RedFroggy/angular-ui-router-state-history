@@ -19,7 +19,7 @@
      */
     var stateHistoryConfigure = function ($provide) {
         var $state_transitionTo;
-        $provide.decorator("$state", ['$delegate', 'stateStore', function ($state, stateStore) {
+        $provide.decorator("$state", ['$delegate', '$q', 'stateStore', function ($state, $q, stateStore) {
             $state_transitionTo = $state.transitionTo;
             $state.transitionTo = function (to, toParams, options) {
                 var toState = $state.get(to);
