@@ -68,3 +68,28 @@ describe('store params of state when $state.go is called', function () {
         expect(stateStore.get('test')).toEqual(null);
     }));
 });
+
+describe('Test stateHistoryService', function () {
+    var scope;
+
+    beforeEach(module('rf.state.history', function($stateProvider) {
+        $stateProvider.state({ name: 'test',
+            url: '/test?fromDate&toDate' })
+    }));
+
+    it('should watch scope change', inject(function($state,stateHistoryService,$rootScope) {
+        scope = $rootScope.$new();
+        var stateParams = {fromDate:"2015-01-01"};
+        var stateStore = stateHistoryService.getStateStore();
+        $state.go('test',stateParams);
+        $rootScope.$apply();
+        expect(stateStore.get('test')).toEqual({fromDate:"2015-01-01"});
+        stateHistoryService.mappingScope(scope,stateParams);
+        expect(scope.fromDate).toBeDefined();
+        expect(scope.fromDate).toEqual("2015-01-01");
+        scope.fromDate = "2016-01-01";
+        $rootScope.$apply();
+        expect(stateStore.get('test')).toEqual({fromDate:"2016-01-01"});
+    }));
+
+});
